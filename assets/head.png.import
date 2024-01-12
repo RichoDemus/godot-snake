@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://6d01e82hisc8"
-path="res://.godot/imported/head_left.png-520a800e43bb84316e65ce57babd9f25.ctex"
+uid="uid://butcut3sfgnf1"
+path="res://.godot/imported/head.png-9b3d0c39be9ea6aceb444f1daef77f41.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/head_left.png"
-dest_files=["res://.godot/imported/head_left.png-520a800e43bb84316e65ce57babd9f25.ctex"]
+source_file="res://assets/head.png"
+dest_files=["res://.godot/imported/head.png-9b3d0c39be9ea6aceb444f1daef77f41.ctex"]
 
 [params]
 

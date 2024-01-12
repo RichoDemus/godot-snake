@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://beglfs83roqod"]
 
 [ext_resource type="Script" path="res://apple.gd" id="1_8gfdo"]
-[ext_resource type="Texture2D" uid="uid://xbaoe5urohtm" path="res://assets/apple.png" id="1_gg6id"]
+[ext_resource type="Texture2D" uid="uid://cnnmer3jqd411" path="res://assets/apple.png" id="1_gg6id"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_dl4w2"]
 radius = 13.0
@@ -16,4 +16,5 @@ texture = ExtResource("1_gg6id")
 position = Vector2(0, 3)
 shape = SubResource("CircleShape2D_dl4w2")
 
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -1,16 +1,16 @@
 [gd_scene load_steps=4 format=3 uid="uid://cfdiaw0g45n5j"]
 
 [ext_resource type="Script" path="res://body.gd" id="1_hggbr"]
-[ext_resource type="Texture2D" uid="uid://c4gghexrfeksp" path="res://assets/body_horizontal.png" id="2_sv3g2"]
+[ext_resource type="Texture2D" uid="uid://ct20idekdboew" path="res://assets/body.png" id="2_8664w"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_yshg7"]
-radius = 20.0
+radius = 16.0312
 
 [node name="Body" type="Area2D"]
 script = ExtResource("1_hggbr")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_sv3g2")
+texture = ExtResource("2_8664w")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_yshg7")

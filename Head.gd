@@ -1,48 +1,69 @@
 class_name Head
-extends CharacterBody2D
+extends Area2D
 
 
-const SPEED = 300.0
+const SPEED = 200.0
+var velocity: Vector2 = Vector2.RIGHT
 #const JUMP_VELOCITY = -400.0
 var child: Body
 const body_scene: PackedScene = preload("res://body.tscn")
+var alive:bool = true
+var body_count: int = 0
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 #var gravity: int = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 func _ready() -> void:
-	velocity = Vector2.RIGHT * SPEED
+	grow_longer.call_deferred(5)
 
+	pass
 
-func _physics_process(delta: float) -> void:
-	var input_velocity = Vector2.ZERO # The player's movement vector.
+func _process(delta: float) -> void:
+	if !alive:
+		return
 	if Input.is_action_pressed("move_right"):
-		input_velocity.x += 1
-	elif Input.is_action_pressed("move_left"):
-		input_velocity.x -= 1
-	elif Input.is_action_pressed("move_down"):
-		input_velocity.y += 1
-	elif Input.is_action_pressed("move_up"):
-		input_velocity.y -= 1
-
-	if input_velocity != Vector2.ZERO:
-		velocity = input_velocity.normalized() * SPEED
+		velocity = velocity.rotated(4 * delta).normalized()
+		look_at(position+velocity)
+	if Input.is_action_pressed("move_left"):
+		velocity = velocity.rotated(-4 * delta).normalized()
+		look_at(position+velocity)
 	
-	move_and_slide()
+	position += velocity * SPEED * delta
+	
+	if position.x < 16 || position.y < 16 || position.x > get_viewport().size.x-16 || position.y > get_viewport().size.y-16:
+		alive = false
+		$HeadSprite.hide()
+		$DeadSprite.show()
+	
+
 	if child:
-		child.update_position(global_position)
+		child.update_position(position)
 	
 func apple_eaten() -> void:
 	print("I ate an apple")
-	grow_longer.call_deferred()
+	grow_longer.call_deferred(5)
 	
 	
-func grow_longer() -> void:
-	var body: Body = body_scene.instantiate() as Body
-	if child:
-		var last_child = child.get_last_child()
-		last_child.child = body
-		last_child.add_child(body)
-	else:
-		child = body
-		add_child(body)
+func grow_longer(segments: int) -> void:
+	for n in segments:
+		var body: Body = body_scene.instantiate() as Body
+	
+		body.id = body_count
+		body_count += 1
+		if child:
+			var last_child = child.get_last_child()
+			body.position = last_child.position
+			last_child.child = body
+			GameManager.add_child(body)
+		else:
+			child = body
+			body.position = position
+			GameManager.add_child(body)
+
+
+func _on_area_entered(other: Area2D) -> void:
+	var body = other as Body
+	if body:
+		alive = false
+		$HeadSprite.hide()
+		$DeadSprite.show()

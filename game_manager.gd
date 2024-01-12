@@ -18,3 +18,4 @@ func spawn_apple() -> void:
 	var apple = apple_scene.instantiate()
 	apple.position = Vector2(x,y)
 	add_child.call_deferred(apple)
+	UI.increment_score()
