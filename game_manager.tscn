@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://crniltc2cstuv"]
+
+[ext_resource type="Script" path="res://game_manager.gd" id="1_lj87g"]
+[ext_resource type="PackedScene" uid="uid://beglfs83roqod" path="res://apple.tscn" id="2_xtpsj"]
+
+[node name="GameManager" type="Node"]
+script = ExtResource("1_lj87g")
+apple_scene = ExtResource("2_xtpsj")
+
+[connection signal="on_apple_eaten" from="." to="." method="spawn_apple"]

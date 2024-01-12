@@ -1,0 +1,26 @@
+[gd_scene load_steps=2 format=3 uid="uid://cfjsmr3xfsvoa"]
+
+[ext_resource type="Script" path="res://ui.gd" id="1_bs6vk"]
+
+[node name="UI" type="CanvasLayer" node_paths=PackedStringArray("score_label")]
+script = ExtResource("1_bs6vk")
+score_label = NodePath("Control/CenterContainer/Label")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 47.0
+grow_horizontal = 2
+
+[node name="Label" type="Label" parent="Control/CenterContainer"]
+layout_mode = 2
+text = "Score: -1"
