@@ -18,7 +18,7 @@ func _ready() -> void:
 
 	pass
 
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	if !alive:
 		return
 	if Input.is_action_pressed("move_right"):
@@ -36,9 +36,13 @@ func _process(delta: float) -> void:
 		$HeadSprite.hide()
 		$DeadSprite.show()
 	
-
 	if child:
 		child.update_position(position)
+		var children = child.get_positions(global_position)
+		var tail_coords = children.slice(-10)
+		var body_coords = children.slice(0, -6)
+		$BodyLine.points = body_coords
+		$TailLine.points = tail_coords
 	
 func apple_eaten() -> void:
 	print("I ate an apple")

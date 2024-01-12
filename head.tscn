@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://cnosloq41exgr"]
+[gd_scene load_steps=7 format=3 uid="uid://cnosloq41exgr"]
 
 [ext_resource type="Script" path="res://Head.gd" id="1_1un3t"]
 [ext_resource type="Texture2D" uid="uid://butcut3sfgnf1" path="res://assets/head.png" id="2_61kwg"]
@@ -6,6 +6,14 @@
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_yshg7"]
 radius = 16.0312
+
+[sub_resource type="Curve" id="Curve_r6b5b"]
+_data = [Vector2(0, 1), 0.0, 0.0869963, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Curve" id="Curve_vrex5"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.747368, 1), 0.0, 0.0, 0, 0, Vector2(0.863158, 0.802198), 0.0, 0.0, 0, 0, Vector2(0.936842, 0.538462), 0.0, 0.0, 0, 0, Vector2(0.99999, 0.186813), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 6
 
 [node name="Head" type="Area2D"]
 position = Vector2(300, 315)
@@ -21,5 +29,17 @@ texture = ExtResource("3_fq23n")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_yshg7")
+
+[node name="BodyLine" type="Line2D" parent="."]
+top_level = true
+width = 32.0
+width_curve = SubResource("Curve_r6b5b")
+default_color = Color(0, 0.45098, 0, 1)
+
+[node name="TailLine" type="Line2D" parent="."]
+top_level = true
+width = 32.0
+width_curve = SubResource("Curve_vrex5")
+default_color = Color(0, 0.45098, 0, 1)
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
