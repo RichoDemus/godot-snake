@@ -8,7 +8,9 @@
 radius = 16.0312
 
 [node name="Head" type="Area2D"]
+position = Vector2(300, 315)
 script = ExtResource("1_1un3t")
+metadata/_edit_group_ = true
 
 [node name="HeadSprite" type="Sprite2D" parent="."]
 texture = ExtResource("2_61kwg")

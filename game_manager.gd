@@ -13,8 +13,8 @@ func _process(delta: float) -> void:
 	pass
 
 func spawn_apple() -> void:
-	var x = get_viewport().size.x * randf()
-	var y = get_viewport().size.y * randf()
+	var x = 600 * randf()
+	var y = 600 * randf()
 	var apple = apple_scene.instantiate()
 	apple.position = Vector2(x,y)
 	add_child.call_deferred(apple)

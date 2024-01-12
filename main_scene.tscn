@@ -5,7 +5,7 @@
 [node name="MainScene" type="Node"]
 
 [node name="Head" parent="." instance=ExtResource("1_sjoyd")]
-position = Vector2(315, 589)
+position = Vector2(247, 290)
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(360, 640)
+position = Vector2(300, 300)

@@ -7,7 +7,7 @@ var id:int
 var upcoming_positions: Array[Vector2] = []
 
 func _ready() -> void:
-	if id < 10:
+	if id < 40:
 		collision_layer = 2
 
 func update_position(parent_position: Vector2) -> void:

@@ -30,7 +30,8 @@ func _process(delta: float) -> void:
 	
 	position += velocity * SPEED * delta
 	
-	if position.x < 16 || position.y < 16 || position.x > get_viewport().size.x-16 || position.y > get_viewport().size.y-16:
+	if position.x < 16 || position.y < 16 || position.x > 600-16 || position.y > 600-16:
+		print("OOB: " + str(position))
 		alive = false
 		$HeadSprite.hide()
 		$DeadSprite.show()
@@ -50,6 +51,7 @@ func grow_longer(segments: int) -> void:
 	
 		body.id = body_count
 		body_count += 1
+		print("spawned body " + str(body_count))
 		if child:
 			var last_child = child.get_last_child()
 			body.position = last_child.position
@@ -64,6 +66,7 @@ func grow_longer(segments: int) -> void:
 func _on_area_entered(other: Area2D) -> void:
 	var body = other as Body
 	if body:
+		print("collided with body " + str(body.id))
 		alive = false
 		$HeadSprite.hide()
 		$DeadSprite.show()
