@@ -10,6 +10,8 @@ const body_scene: PackedScene = preload("res://body.tscn")
 var alive:bool = true
 var body_count: int = 0
 
+signal ate_apple
+
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 #var gravity: int = ProjectSettings.get_setting("physics/2d/default_gravity")
 
@@ -46,6 +48,7 @@ func _physics_process(delta: float) -> void:
 	
 func apple_eaten() -> void:
 	print("I ate an apple")
+	ate_apple.emit()
 	grow_longer.call_deferred(5)
 	
 	
