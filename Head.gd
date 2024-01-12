@@ -30,7 +30,7 @@ func _process(delta: float) -> void:
 	
 	position += velocity * SPEED * delta
 	
-	if position.x < 16 || position.y < 16 || position.x > 600-16 || position.y > 600-16:
+	if position.x < 16 || position.y < 16 || position.x > GameManager.play_area.end.x-16 || position.y > GameManager.play_area.end.y-16:
 		print("OOB: " + str(position))
 		alive = false
 		$HeadSprite.hide()
