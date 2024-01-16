@@ -21,7 +21,7 @@ func _ready() -> void:
 	pass
 
 func _physics_process(delta: float) -> void:
-	if !alive:
+	if !alive || GameManager.paused:
 		return
 	if Input.is_action_pressed("move_right"):
 		velocity = velocity.rotated(4 * delta).normalized()
@@ -37,6 +37,7 @@ func _physics_process(delta: float) -> void:
 		alive = false
 		$HeadSprite.hide()
 		$DeadSprite.show()
+		GameManager.stop_game()
 	
 	if child:
 		child.update_position(position)
@@ -77,3 +78,4 @@ func _on_area_entered(other: Area2D) -> void:
 		alive = false
 		$HeadSprite.hide()
 		$DeadSprite.show()
+		GameManager.stop_game()

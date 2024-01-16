@@ -1,11 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://cdgoksko0d08g"]
-
-[ext_resource type="PackedScene" uid="uid://cnosloq41exgr" path="res://head.tscn" id="1_sjoyd"]
+[gd_scene format=3 uid="uid://cdgoksko0d08g"]
 
 [node name="MainScene" type="Node"]
-
-[node name="Head" parent="." instance=ExtResource("1_sjoyd")]
-position = Vector2(247, 290)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(300, 300)
