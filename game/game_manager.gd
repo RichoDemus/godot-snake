@@ -51,6 +51,9 @@ func spawn_apple() -> void:
 func spawn_snake() -> void:
 	if head:
 		head.queue_free()
+		for child in get_children():
+			if child is Body:
+				child.queue_free()
 	head = head_scene.instantiate()
 	head.position = Vector2(100,100)
 	add_child.call_deferred(head)
