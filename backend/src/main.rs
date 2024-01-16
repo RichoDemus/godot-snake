@@ -9,6 +9,7 @@ use serde::Deserialize;
 use serde::Serialize;
 use sled::Db;
 use uuid::Uuid;
+use actix_cors::Cors;
 
 static DATABASE: Lazy<Mutex<Db>> = Lazy::new(|| {
     cfg_if::cfg_if! {
@@ -79,7 +80,13 @@ async fn main() -> std::io::Result<()> {
         .try_init();
     let port = 9090;
     info!("Starting on {port}");
-    HttpServer::new(|| App::new().service(get_score).service(publish_score))
+    HttpServer::new(|| App::new().service(get_score).service(publish_score)            .wrap(
+        Cors::default()
+            .supports_credentials()
+            .allow_any_origin()
+            .allow_any_method()
+            .allow_any_header(),
+    ))
         .bind(("0.0.0.0", port))?
         .run()
         .await

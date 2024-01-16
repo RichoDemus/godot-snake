@@ -16,3 +16,4 @@ uuid = { version = "1" , features = ["v4"]}
 serde = { version = "1" ,features = ["derive"]}
 cfg-if = "1.0.0"
 anyhow = "1.0.79"
+actix-cors = "0.7"
