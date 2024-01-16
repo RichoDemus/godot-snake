@@ -1,7 +1,8 @@
 use std::ops::Deref;
 use std::sync::Mutex;
 
-use actix_web::{get, post, web, App, HttpResponse, HttpServer, Responder};
+use actix_cors::Cors;
+use actix_web::{get, options, post, web, App, HttpResponse, HttpServer, Responder};
 use anyhow::{Context, Result};
 use log::{info, warn, LevelFilter};
 use once_cell::sync::Lazy;
@@ -9,7 +10,6 @@ use serde::Deserialize;
 use serde::Serialize;
 use sled::Db;
 use uuid::Uuid;
-use actix_cors::Cors;
 
 static DATABASE: Lazy<Mutex<Db>> = Lazy::new(|| {
     cfg_if::cfg_if! {
@@ -52,6 +52,12 @@ async fn get_score() -> impl Responder {
     web::Json(scores)
 }
 
+#[options("/")]
+async fn options() -> HttpResponse {
+    info!("options");
+    HttpResponse::Ok().into()
+}
+
 #[post("/")]
 async fn publish_score(score: web::Json<Score>) -> impl Responder {
     if let Err(e) = insert(score.into_inner()) {
@@ -80,16 +86,22 @@ async fn main() -> std::io::Result<()> {
         .try_init();
     let port = 9090;
     info!("Starting on {port}");
-    HttpServer::new(|| App::new().service(get_score).service(publish_score)            .wrap(
-        Cors::default()
-            .supports_credentials()
-            .allow_any_origin()
-            .allow_any_method()
-            .allow_any_header(),
-    ))
-        .bind(("0.0.0.0", port))?
-        .run()
-        .await
+    HttpServer::new(|| {
+        App::new()
+            .service(get_score)
+            .service(publish_score)
+            .service(options)
+            .wrap(
+                Cors::default()
+                    .allow_any_origin()
+                    .allow_any_method()
+                    .allow_any_header()
+                    .send_wildcard(),
+            )
+    })
+    .bind(("0.0.0.0", port))?
+    .run()
+    .await
 }
 
 #[cfg(test)]
@@ -114,7 +126,7 @@ mod tests {
             .uri("/")
             .set_json(Score {
                 name: "Adam".to_string(),
-                score: 10,
+                score: 1000,
             })
             .to_request();
         test::call_service(&app, req).await;
@@ -126,7 +138,7 @@ mod tests {
             scores,
             vec![Score {
                 name: "Adam".to_string(),
-                score: 10,
+                score: 1000,
             }]
         );
 
@@ -144,9 +156,14 @@ mod tests {
         let req = TestRequest::get().uri("/").to_request();
         let scores: Vec<Score> = test::call_and_read_body_json(&app, req).await;
         println!("scores: {scores:?}");
+        assert_eq!(scores.len(), 10);
         assert_eq!(
             scores,
             vec![
+                Score {
+                    name: "Adam".to_string(),
+                    score: 1000,
+                },
                 Score {
                     name: "19".to_string(),
                     score: 19
@@ -183,12 +200,7 @@ mod tests {
                     name: "11".to_string(),
                     score: 11
                 },
-                Score {
-                    name: "10".to_string(),
-                    score: 10
-                },
             ]
         );
-        assert_eq!(scores.len(), 10);
     }
 }
