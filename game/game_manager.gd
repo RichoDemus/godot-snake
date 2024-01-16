@@ -21,8 +21,14 @@ func start_game() -> void:
 	running = true
 
 func stop_game() -> void:
+
 	running = false
 	pass
+	
+func upload_score(name:String, score:int) -> void:
+	var json = JSON.stringify({"name":name,"score":  score})
+	var headers = ["Content-Type: application/json"]
+	$HTTPRequest.request("https://snake.richodemus.com", headers, HTTPClient.METHOD_POST, json)
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

@@ -9,4 +9,6 @@ script = ExtResource("1_lj87g")
 apple_scene = ExtResource("2_xtpsj")
 head_scene = ExtResource("3_qe6bg")
 
+[node name="HTTPRequest" type="HTTPRequest" parent="."]
+
 [connection signal="on_apple_eaten" from="." to="." method="spawn_apple"]
