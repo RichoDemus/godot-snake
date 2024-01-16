@@ -41,8 +41,8 @@ func _process(delta: float) -> void:
 func spawn_apple() -> void:
 	if apple:
 		apple.queue_free()
-	var x = randf_range(play_area.position.x, play_area.end.x)
-	var y = randf_range(play_area.position.y, play_area.end.y)
+	var x = randf_range(play_area.position.x + 30, play_area.end.x - 30)
+	var y = randf_range(play_area.position.y + 30, play_area.end.y - 30)
 	apple = apple_scene.instantiate()
 	apple.position = Vector2(x,y)
 	add_child.call_deferred(apple)
