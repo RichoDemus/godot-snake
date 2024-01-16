@@ -28,15 +28,17 @@ jobs:
           mv /root/.local/share/godot/templates/${GODOT_VERSION}.stable /github/home/.local/share/godot/export_templates/${GODOT_VERSION}.stable
       - name: Web Build
         run: |
+          cd game
           mkdir -v -p build/web
+          pwd
           godot --headless --verbose --export-release "Web" build/web/index.html
-          cp .github/coi-serviceworker.min.js build/web/
+          cp ../.github/coi-serviceworker.min.js build/web/
           sed -i 's|<script src="index.js"></script>|<script src="index.js"></script>\n<script src="coi-serviceworker.min.js"></script>|g' build/web/index.html
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v1
-        with:
-          name: web
-          path: build/web
+#      - name: Upload Artifact
+#        uses: actions/upload-artifact@v1
+#        with:
+#          name: web
+#          path: build/web
       - name: Install rsync 📚
         run: |
           apt-get update && apt-get install -y rsync
@@ -44,5 +46,5 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages # The branch the action should deploy to.
-          folder: build/web # The folder the action should deploy.
+          folder: game/build/web # The folder the action should deploy.
 
