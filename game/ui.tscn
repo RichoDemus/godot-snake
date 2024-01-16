@@ -2,14 +2,17 @@
 
 [ext_resource type="Script" path="res://ui.gd" id="1_bs6vk"]
 
-[node name="UI" type="CanvasLayer" node_paths=PackedStringArray("score_label", "pause_label", "main_menu", "score_upload", "username", "upload_button")]
+[node name="UI" type="CanvasLayer" node_paths=PackedStringArray("score_label", "pause_label", "main_menu", "score_upload", "username", "upload_button", "high_score_screen", "not_high_score_screen", "high_score_list")]
 script = ExtResource("1_bs6vk")
 score_label = NodePath("Control/LabelContainer/Label")
 pause_label = NodePath("Control/CenterContainer/PauseLabel")
-main_menu = NodePath("MainMenuContainer")
-score_upload = NodePath("ScoreUploadContainer")
-username = NodePath("ScoreUploadContainer/VSplitContainer/HSplitContainer/UsernameInput")
-upload_button = NodePath("ScoreUploadContainer/VSplitContainer/CenterContainer/UploadScoreButton")
+main_menu = NodePath("Control/NotHighScore/MainMenuContainer")
+score_upload = NodePath("Control/NotHighScore/ScoreUploadContainer")
+username = NodePath("Control/NotHighScore/ScoreUploadContainer/VSplitContainer/HSplitContainer/UsernameInput")
+upload_button = NodePath("Control/NotHighScore/ScoreUploadContainer/VSplitContainer/CenterContainer/UploadScoreButton")
+high_score_screen = NodePath("Control/HighScoreListContainer")
+not_high_score_screen = NodePath("Control/NotHighScore")
+high_score_list = NodePath("Control/HighScoreListContainer/CenterContainer/HighScores")
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
@@ -30,6 +33,37 @@ grow_horizontal = 2
 layout_mode = 2
 text = "Score: -1"
 
+[node name="HighScoreListContainer" type="VSplitContainer" parent="Control"]
+layout_mode = 0
+offset_right = 600.0
+offset_bottom = 600.0
+split_offset = 45
+
+[node name="HSplitContainer" type="HSplitContainer" parent="Control/HighScoreListContainer"]
+layout_mode = 2
+split_offset = 330
+
+[node name="CenterContainer2" type="CenterContainer" parent="Control/HighScoreListContainer/HSplitContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control/HighScoreListContainer/HSplitContainer/CenterContainer2"]
+layout_mode = 2
+text = "Scores"
+
+[node name="CenterContainer" type="CenterContainer" parent="Control/HighScoreListContainer/HSplitContainer"]
+layout_mode = 2
+
+[node name="CloseHighScoreButton" type="Button" parent="Control/HighScoreListContainer/HSplitContainer/CenterContainer"]
+layout_mode = 2
+text = "Close"
+
+[node name="CenterContainer" type="CenterContainer" parent="Control/HighScoreListContainer"]
+layout_mode = 2
+
+[node name="HighScores" type="Label" parent="Control/HighScoreListContainer/CenterContainer"]
+layout_mode = 2
+text = "Loading..."
+
 [node name="CenterContainer" type="CenterContainer" parent="Control"]
 layout_mode = 0
 offset_top = 198.0
@@ -41,56 +75,68 @@ visible = false
 layout_mode = 2
 text = "Pauserino. Like Anders would've said"
 
-[node name="MainMenuContainer" type="CenterContainer" parent="."]
+[node name="NotHighScore" type="Control" parent="Control"]
+anchors_preset = 0
+offset_right = 600.0
+offset_bottom = 600.0
+
+[node name="MainMenuContainer" type="CenterContainer" parent="Control/NotHighScore"]
 offset_top = 82.0
 offset_right = 600.0
 offset_bottom = 280.0
 
-[node name="VSplitContainer" type="VSplitContainer" parent="MainMenuContainer"]
+[node name="VSplitContainer" type="VSplitContainer" parent="Control/NotHighScore/MainMenuContainer"]
 layout_mode = 2
 
-[node name="CenterContainer" type="CenterContainer" parent="MainMenuContainer/VSplitContainer"]
+[node name="CenterContainer" type="CenterContainer" parent="Control/NotHighScore/MainMenuContainer/VSplitContainer"]
 layout_mode = 2
 
-[node name="TitleLabel" type="Label" parent="MainMenuContainer/VSplitContainer/CenterContainer"]
+[node name="TitleLabel" type="Label" parent="Control/NotHighScore/MainMenuContainer/VSplitContainer/CenterContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 40
 text = "Danger Noodle"
 
-[node name="Label" type="Label" parent="MainMenuContainer/VSplitContainer"]
+[node name="VSplitContainer" type="VSplitContainer" parent="Control/NotHighScore/MainMenuContainer/VSplitContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control/NotHighScore/MainMenuContainer/VSplitContainer/VSplitContainer"]
 layout_mode = 2
 text = "Turn with A/D,Space for Start/Pause"
 
-[node name="ScoreUploadContainer" type="VSplitContainer" parent="."]
+[node name="CenterContainer" type="CenterContainer" parent="Control/NotHighScore/MainMenuContainer/VSplitContainer/VSplitContainer"]
+layout_mode = 2
+
+[node name="HighScoreButon" type="Button" parent="Control/NotHighScore/MainMenuContainer/VSplitContainer/VSplitContainer/CenterContainer"]
+layout_mode = 2
+text = "High Score"
+
+[node name="ScoreUploadContainer" type="VSplitContainer" parent="Control/NotHighScore"]
 offset_top = 258.0
 offset_right = 600.0
 offset_bottom = 600.0
 
-[node name="CenterContainer" type="CenterContainer" parent="ScoreUploadContainer"]
+[node name="VSplitContainer" type="VSplitContainer" parent="Control/NotHighScore/ScoreUploadContainer"]
 layout_mode = 2
 
-[node name="YourScoreLabel" type="Label" parent="ScoreUploadContainer/CenterContainer"]
-layout_mode = 2
-text = "Your score was X"
-
-[node name="VSplitContainer" type="VSplitContainer" parent="ScoreUploadContainer"]
+[node name="HSplitContainer" type="HSplitContainer" parent="Control/NotHighScore/ScoreUploadContainer/VSplitContainer"]
 layout_mode = 2
 
-[node name="HSplitContainer" type="HSplitContainer" parent="ScoreUploadContainer/VSplitContainer"]
-layout_mode = 2
-
-[node name="UsernameLabel" type="Label" parent="ScoreUploadContainer/VSplitContainer/HSplitContainer"]
+[node name="UsernameLabel" type="Label" parent="Control/NotHighScore/ScoreUploadContainer/VSplitContainer/HSplitContainer"]
 layout_mode = 2
 text = "Name"
 
-[node name="UsernameInput" type="LineEdit" parent="ScoreUploadContainer/VSplitContainer/HSplitContainer"]
+[node name="UsernameInput" type="LineEdit" parent="Control/NotHighScore/ScoreUploadContainer/VSplitContainer/HSplitContainer"]
 layout_mode = 2
 
-[node name="CenterContainer" type="CenterContainer" parent="ScoreUploadContainer/VSplitContainer"]
+[node name="CenterContainer" type="CenterContainer" parent="Control/NotHighScore/ScoreUploadContainer/VSplitContainer"]
 layout_mode = 2
 
-[node name="UploadScoreButton" type="Button" parent="ScoreUploadContainer/VSplitContainer/CenterContainer"]
+[node name="UploadScoreButton" type="Button" parent="Control/NotHighScore/ScoreUploadContainer/VSplitContainer/CenterContainer"]
 layout_mode = 2
 text = "Upload"
 
-[connection signal="pressed" from="ScoreUploadContainer/VSplitContainer/CenterContainer/UploadScoreButton" to="." method="_on_upload_score_button_pressed"]
+[node name="HTTPRequest" type="HTTPRequest" parent="."]
+
+[connection signal="pressed" from="Control/HighScoreListContainer/HSplitContainer/CenterContainer/CloseHighScoreButton" to="." method="_on_close_high_score_button_pressed"]
+[connection signal="pressed" from="Control/NotHighScore/MainMenuContainer/VSplitContainer/VSplitContainer/CenterContainer/HighScoreButon" to="." method="_on_high_score_buton_pressed"]
+[connection signal="pressed" from="Control/NotHighScore/ScoreUploadContainer/VSplitContainer/CenterContainer/UploadScoreButton" to="." method="_on_upload_score_button_pressed"]
