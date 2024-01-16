@@ -32,7 +32,7 @@ func upload_score(name:String, score:int) -> void:
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if Input.is_action_just_pressed("start"):
+	if Input.is_action_just_pressed("start") && UI.can_pause:
 		if !running:
 			start_game()
 		else:

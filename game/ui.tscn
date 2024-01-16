@@ -81,6 +81,7 @@ offset_right = 600.0
 offset_bottom = 600.0
 
 [node name="MainMenuContainer" type="CenterContainer" parent="Control/NotHighScore"]
+layout_mode = 0
 offset_top = 82.0
 offset_right = 600.0
 offset_bottom = 280.0
@@ -111,6 +112,7 @@ layout_mode = 2
 text = "High Score"
 
 [node name="ScoreUploadContainer" type="VSplitContainer" parent="Control/NotHighScore"]
+layout_mode = 0
 offset_top = 258.0
 offset_right = 600.0
 offset_bottom = 600.0
@@ -139,4 +141,6 @@ text = "Upload"
 
 [connection signal="pressed" from="Control/HighScoreListContainer/HSplitContainer/CenterContainer/CloseHighScoreButton" to="." method="_on_close_high_score_button_pressed"]
 [connection signal="pressed" from="Control/NotHighScore/MainMenuContainer/VSplitContainer/VSplitContainer/CenterContainer/HighScoreButon" to="." method="_on_high_score_buton_pressed"]
+[connection signal="focus_entered" from="Control/NotHighScore/ScoreUploadContainer/VSplitContainer/HSplitContainer/UsernameInput" to="." method="_on_username_input_focus_entered"]
+[connection signal="focus_exited" from="Control/NotHighScore/ScoreUploadContainer/VSplitContainer/HSplitContainer/UsernameInput" to="." method="_on_username_input_focus_exited"]
 [connection signal="pressed" from="Control/NotHighScore/ScoreUploadContainer/VSplitContainer/CenterContainer/UploadScoreButton" to="." method="_on_upload_score_button_pressed"]

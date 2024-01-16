@@ -9,13 +9,14 @@ extends CanvasLayer
 @export var high_score_screen: Container
 @export var not_high_score_screen: Control
 @export var high_score_list: Label
+var can_pause:bool = true
 
 var score:int = 0
 
 func _ready() -> void:
 	high_score_screen.visible = false
 	not_high_score_screen.visible = true
-
+	
 func increment_score() -> void:
 	score += 1
 	score_label.text = "Score: " + str(score)
@@ -54,3 +55,11 @@ func _on_request_completed(result, response_code, headers, body):
 	high_score_list.text = ""
 	for score in json:
 		high_score_list.text += score.name + ": " + str(score.score) + "\n"
+
+
+func _on_username_input_focus_entered() -> void:
+	can_pause = false
+
+
+func _on_username_input_focus_exited() -> void:
+	can_pause = true
